@@ -1,0 +1,29 @@
+import requests
+import time
+
+global username
+username = input("Input username here:") 
+
+
+def idfinder():
+    number = 1
+    while number != 1000000000:
+        req = requests.get(f"https://users.roblox.com/v1/users/{number}")
+        if req.status_code == 200:
+            response = req.json()
+            if response["name"] == username:
+                print("\n founded! :",number)
+                break
+            else:
+                print("checked" ,number)
+                number = number + 1
+                if number == 100000000:
+                    print("not founded in the first 100M UID")
+                time.sleep(0.5)
+        else:
+             print(number,"skipped")
+             number = number + 1
+             if number == 100000000:
+                 print("not founded in the first 100M UID")
+             time.sleep(0.5)
+idfinder()
